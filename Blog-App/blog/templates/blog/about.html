@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+	<div class="jumbotron">
+		  <h5 class="display-4">Who we are</h5>
+		  <p class="lead">Our Vision, Mission, and Contributors</p>
+		  <hr class="my-2">
+		  <p>We are a team of highly trained Journalists seeking to put the truth out there to positively influence people's lives and get people properly informed on a varieties of life's issuses.</p>
+		  <a class="btn btn-primary btn-lg" href="{% url 'blog-about' %}" role="button">Learn more</a>
+	</div>
+	<div class="row show-grid text-center">
+            <div xs={12} sm={4} class="person-wrapper col" >
+              <Image src="{% static 'blog/person-1.jpg' %}" class="rounded-circle rounded-lg"/>
+              <h4>Jeremy Mayor</h4>
+              <p>If it's not what you want - stop and change it. Don't just keep going and expect it will get better. If you overwork it you become a cloud killer. </p>
+            </div>
+            <div xs={12} sm={4} class="person-wrapper col">
+              <Image src="{% static 'blog/person-2.jpg' %}" class="rounded-circle rounded-lg"/>
+              <h4>Vanessa George</h4>
+              <p>The shadows are just like the highlights, but we're going in the opposite direction. Those great big fluffy clouds. You have freedom here. </p>
+            </div>
+            <div xs={12} sm={4} class="person-wrapper col">
+              <Image src="{% static 'blog/person-3.jpg' %}" class="rounded-circle rounded-lg"/>
+              <h4>Eva Ross</h4>
+              <p>You got your heavy coat out yet? It's getting colder. When things happen - enjoy them. They're little gifts.</p>
+            </div>
+    </div>
+{% endblock content %}
+
+
+
+

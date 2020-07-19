@@ -1,0 +1,165 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/d5e88a923b.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+	{% if title %}
+		<title>5 STACK BLOG - {{ title }}</title>
+	{% else %}
+		<title>5 STACK BLOG</title>
+	{% endif %}
+</head>
+<body>
+	<header class="site-header">
+	  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+	    <div class="container">
+	    	<a class="navbar-brand mr-4 text-uppercase" href="{% url 'blog-home'%}">
+		          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dice-5" 
+		          	fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		            <path fill-rule="evenodd" d="M13 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
+		            <circle cx="4" cy="4" r="1.5"/>
+		            <circle cx="12" cy="4" r="1.5"/>
+		            <circle cx="12" cy="12" r="1.5"/>
+		            <circle cx="4" cy="12" r="1.5"/>
+		            <circle cx="8" cy="8" r="1.5"/>
+	            </svg>
+            <span className="brand-text">5 stack Blog</a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarToggle">
+	        <div class="navbar-nav mr-auto">
+	          <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+	          <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+	          <a class="nav-item nav-link" href="{% url 'blog-contact' %}">Contact Us</a>
+	        </div>
+	        <!-- Navbar Right Side -->
+	        <div class="navbar-nav">
+	        	{% if user.is_authenticated %}
+	        		<a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+	        		<a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+	        		<a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+	        	{% else %}
+	          		<a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+	          		<a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+	          	{% endif %}
+	        </div>
+	      </div>
+	    </div>
+	  </nav>
+	</header>
+	<main role="main" class="container">
+	  <div class="row">
+	    <div class="col-lg-8">
+	    	{% if messages %}
+	    	{% for message in messages %}
+	    	<div class="alert-{{message.tags}}">
+	    		{{message}}
+	    	</div>
+	    	{% endfor %}
+	    	{% endif %}
+	      {% block content %}{% endblock %}
+	    	
+	    </div>
+	    <div class="col-lg-4">
+	      <div class="content-section">
+	        <h4>Related Posts:</h4>
+	        <p class='text-muted'>Views posts on the basis of topics and interests</p>
+	          <ul class="list-group">
+	            <li class="list-group-item list-group-item-light"><a href="#"> Latest Posts </a></li>
+	            <li class="list-group-item list-group-item-light"><a href="#">Socio-economic Posts </a></li>
+	            <li class="list-group-item list-group-item-light"><a href="#">Political Posts </a></li>
+	            <li class="list-group-item list-group-item-light"><a href="#">Entertainment Posts </a></li>
+	            <li class="list-group-item list-group-item-light"><a href="#">Medical Posts </a></li>
+	            <li class="list-group-item list-group-item-light"><a href="#">Business Posts </a></li>
+	          </ul>
+	       </div>	    
+	    	<div class="my-md-5">
+	       		<h6 class="mb-3"><small class="text-muted">Use Search to find relevant posts on our website</small></h6>
+		          <form class="form-inline my-2 my-lg-0">
+	      			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	      			<span class="d-inline-block"><button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button></span>
+	    		  </form>
+	      	</div>
+	      	<div class="card mt-5 mb-2">
+  				<img class="card-img-top rounded-sm" src="{% static 'blog/newsLetter.jpg' %}" alt="Card image cap">
+  				<div class="card-body">
+    			<a href="#!" class="btn btn-outline-primary">Subscribe for our NewsLetter</a>
+  			</div>
+		</div>
+	   </div>
+	</main>
+	<footer class="container py-5 mt-auto py-md-5 border-top">
+      <div class="row">
+        <div class="col-6 col-md-3 pt-5">
+          <small class="d-block mb-3 text-muted">© 2020 <span class="footer-text text-uppercase"><a href="/"> 5 Stack Blog</a></span> <br/>All Rights Reserved</small>
+          <div>
+          	<small class="text-muted">Follow Us</small>
+				<div><a class="btn btn-ht-facebook-blue btn-ht-xs border"
+					target="_blank" href="https://facebook.com/" rel="nofollow" 
+					title="Share on Facebook"><i class="text-primary bg-white fab fa-facebook-f">
+					</i></a></div>
+				<div><a class="btn btn-ht-twitter-blue btn-ht-xs border"
+					target="_blank" href="https://twitter.com/" rel="nofollow" 
+					title="Share on Twitter"><i class="text-primary bg-white fab fa-twitter-square">
+					</i></a></div>
+				<div><a class="btn btn-ht-instagram-blue btn-ht-xs border"
+					target="_blank" href="https://instagram.com/" rel="nofollow" 
+					title="Share on Instagram"><i class="text-dark bg-white fab fa-instagram-square">
+					</i></a></div>
+				<div><a class="btn btn-ht-youtube-red btn-ht-xs border"
+					target="_blank" href="https://youtube.com/" rel="nofollow" 
+					title="Share on Youtube"><i class="text-danger bg-white fab fa-youtube">
+					</i></a></div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 pt-5">
+          <h5>Resources</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Cool stuff</a></li>
+            <li><a class="text-muted" href="#">Random feature</a></li>
+            <li><a class="text-muted" href="#">Team feature</a></li>
+            <li><a class="text-muted" href="#">Articles</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-3 pt-5">
+          <h5>Company</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="{% url 'blog-about' %}">About Us</a></li>
+            <li><a class="text-muted" href="{% url 'blog-contact' %}">Contact Us</a></li>
+            <li><a class="text-muted" href="{% url 'blog-contact' %}">Support Us</a></li>
+            <li><a class="text-muted" href="{% url 'blog-contact' %}">Start Blogging</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-3 pt-5">
+          <h5>About</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="{% url 'blog-about' %}">Our Team</a></li>
+            <li><a class="text-muted" href="#">Locations</a></li>
+            <li><a class="text-muted" href="#">Privacy Policy</a></li>
+            <li><a class="text-muted" href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+      	<div class="mt-5 ml-auto made">
+      		<small>Made with <i class="fas fa-heart text-danger"></i> in Norway</small></div>
+      	</div>
+    </footer>
+	
+
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
