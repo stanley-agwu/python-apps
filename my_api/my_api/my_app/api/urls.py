@@ -1,6 +1,12 @@
 from django.conf.urls import url, include
-from .views import hello_world
+from .views import CarSpecificationViewset
 
-urlpatterns = [
-    url('first/', hello_world),
-]
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('car-specs', CarSpecificationViewset, basename='car-specs')
+urlpatterns = router.urls
+
+# urlpatterns = [
+#     url('', include(router.urls)),
+# ]

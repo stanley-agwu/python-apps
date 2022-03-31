@@ -1,20 +1,10 @@
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import viewsets
 
-# class ExampleView(APIView):
-#     permission_classes = [IsAuthenticated]
+from my_app.models import CarSpecification
+from .serializer import CarSpecificationSerializer
 
-#     def get(self, request, format=None):
-#         content = {
-#             'status': 'request was permitted'
-#         }
-#         return Response(content)
-
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-
-@api_view()
-@permission_classes([AllowAny])
-def hello_world(request):
-    return Response({"message": "Hello, world!"})
+class CarSpecificationViewset(viewsets.ModelViewSet):
+    serializer_class = CarSpecificationSerializer
+    queryset = CarSpecification.objects.all()
