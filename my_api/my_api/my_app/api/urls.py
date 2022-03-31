@@ -4,9 +4,9 @@ from .views import CarSpecificationViewset
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('car-specs', CarSpecificationViewset, basename='car-specs')
-urlpatterns = router.urls
+router.register('car-specs', CarSpecificationViewset, basename='car-specification')
+# urlpatterns = router.urls
 
-# urlpatterns = [
-#     url('', include(router.urls)),
-# ]
+urlpatterns = [
+    url('', include(router.urls)),
+]
