@@ -25,3 +25,9 @@ class CarSpecificationViewset(viewsets.ModelViewSet):
         new_car.save()
         serializer = CarSpecificationSerializer(new_car)
         return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        car = self.get_object()
+        car.delete()
+
+        return Response({'message': car.car_model + ' deleted successfully!'})
