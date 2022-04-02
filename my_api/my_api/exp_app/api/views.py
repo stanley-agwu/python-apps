@@ -10,8 +10,14 @@ class CarAPIView(APIView):
     return Car.objects.all()
 
   def get(self, request, *args, **kwargs):
-    cars = self.get_queryset()
-    serializer = CarSerializer(cars, many=True)
+    try:
+      id = request.query_params['id']
+      if (id != None):
+        cars = Car.objects.get(id=id)
+        serializer = CarSerializer(cars)
+    except:
+      cars = self.get_queryset()
+      serializer = CarSerializer(cars, many=True)
     return Response(serializer.data)
   
   def post(self, request, *args, **kwargs):
