@@ -1,7 +1,17 @@
 from django.db import models
 
 # Create your models here.
+
+class CarPlan(models.Model):
+    plan_name = models.CharField(max_length=20)
+    years_of_warranty = models.PositiveIntegerField(default=1)
+    finance_plan = models.CharField(max_length=20, default="unavailable")
+
+    def __str__(self):
+        return self.plan_name
+
 class CarSpecification(models.Model):
+    car_plan = models.ForeignKey(CarPlan, on_delete=models.SET_NULL, null=True, blank=True)
     car_brand = models.CharField(max_length=50)
     car_model = models.CharField(max_length=100)
     production_year = models.CharField(max_length=10)
