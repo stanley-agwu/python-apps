@@ -30,5 +30,7 @@ urlpatterns = [
     path('myapp/', include('my_app.api.urls')),
     path('expapp/', include('exp_app.api.urls')),
     path('post/', include('post.api.urls')),
+    path('school/', include('school.api.urls')),
+
     
 ]
