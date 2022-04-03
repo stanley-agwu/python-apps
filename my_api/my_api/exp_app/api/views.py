@@ -4,28 +4,46 @@ from .serializer import CarSerializer
 from exp_app.models import Car
 
 class CarAPIView(APIView):
-  serializer_class = CarSerializer
+    serializer_class = CarSerializer
 
-  def get_queryset(self):
-    return Car.objects.all()
+    def get_queryset(self):
+        return Car.objects.all()
 
-  def get(self, request, *args, **kwargs):
-    try:
-      id = request.query_params['id']
-      if (id != None):
-        cars = Car.objects.get(id=id)
-        serializer = CarSerializer(cars)
-    except:
-      cars = self.get_queryset()
-      serializer = CarSerializer(cars, many=True)
-    return Response(serializer.data)
-  
-  def post(self, request, *args, **kwargs):
-    car_data = request.data
-    new_car = Car.objects.create(car_brand=car_data['car_brand'], car_model=car_data['car_model'],
-                car_body=car_data['car_body'], production_year=car_data['production_year'], engine_type=car_data['engine_type'])
+    def get(self, request, *args, **kwargs):
+        print(request.query_params)
+        try:
+            id = request.query_params['id']
+            if (id != None):
+                cars = Car.objects.get(id=id)
+            serializer = CarSerializer(cars)
+        except:
+            cars = self.get_queryset()
+            serializer = CarSerializer(cars, many=True)
+        return Response(serializer.data)
 
-    new_car.save()
-    serializer = CarSerializer(new_car)
-    return Response(serializer.data)
-    
+    def post(self, request, *args, **kwargs):
+        car_data = request.data
+        new_car = Car.objects.create(car_brand=car_data['car_brand'], car_model=car_data['car_model'],
+                    car_body=car_data['car_body'], production_year=car_data['production_year'], engine_type=car_data['engine_type'])
+
+        new_car.save()
+        serializer = CarSerializer(new_car)
+        return Response(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        # id = request.query_params["id"]
+        car_obj = Car.objects.get()
+
+        data = request.data
+
+        car_obj.car_brand = data['car_brand']
+        car_obj.car_model = data['car_model']
+        car_obj.car_body = data['car_body']
+        car_obj.engine_type = data['engine_type']
+        car_obj.production_year = data['production_year']
+
+        car_obj.save()
+
+        serializer = CarSerializer(car_obj)
+
+        return Response(serializer.data)

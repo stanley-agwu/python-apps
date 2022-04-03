@@ -31,3 +31,21 @@ class CarSpecificationViewset(viewsets.ModelViewSet):
     #     car.delete()
 
     #     return Response({'message': car.car_model + ' deleted successfully!'})
+
+    def update(self, request, *args, **kwargs):
+        car_object = self.get_object()
+        data = request.data
+
+        car_plan = CarPlan.objects.get(plan_name=data['plan_name'])
+
+        car_object.car_plan = car_plan
+        car_object.car_brand = data['car_brand']
+        car_object.car_model = data['car_model']
+        car_object.car_body = data['car_body']
+        car_object.engine_type = data['engine_type']
+        car_object.production_year = data['production_year']
+
+        car_object.save()
+        serializer = CarSpecificationSerializer(car_object)
+
+        return Response(serializer.data)
