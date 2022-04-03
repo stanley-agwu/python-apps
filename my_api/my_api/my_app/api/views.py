@@ -49,3 +49,24 @@ class CarSpecificationViewset(viewsets.ModelViewSet):
         serializer = CarSpecificationSerializer(car_object)
 
         return Response(serializer.data)
+
+    def partial_update(self, request, *args, **kwargs):
+        car_object = self.get_object()
+        data = request.data
+
+        try:
+            car_plan = CarPlan.objects.get(plan_name=data['plan_name'])
+            car_object.car_plan = car_plan
+        except KeyError:
+            pass
+
+        car_object.car_brand = data.get("car_brand", car_object.car_brand)
+        car_object.car_model = data.get("car_model", car_object.car_model)
+        car_object.production_year = data.get("production_year", car_object.production_year)
+        car_object.car_body = data.get("car_body", car_object.car_body)
+        car_object.engine_type = data.get("engine_type", car_object.engine_type)
+
+        car_object.save()
+        serializer = CarSpecificationSerializer(car_object)
+
+        return Response(serializer.data)
